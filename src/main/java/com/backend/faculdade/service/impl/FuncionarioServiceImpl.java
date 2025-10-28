@@ -2,6 +2,7 @@ package com.backend.faculdade.service.impl;
 
 import com.backend.faculdade.dto.funcionario.FuncionarioRequestDTO;
 import com.backend.faculdade.dto.funcionario.FuncionarioResponseDTO;
+import com.backend.faculdade.dto.projeto.ProjetoResponseDTO;
 import com.backend.faculdade.exception.ResourceNotFoundException;
 import com.backend.faculdade.model.Funcionario;
 import com.backend.faculdade.repository.FuncionarioRepository;
@@ -24,6 +25,8 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     public FuncionarioResponseDTO findById(Long id) {
         var funcionario = funcionarioRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Funcionário", id));
+
+
         return new FuncionarioResponseDTO(funcionario);
     }
 
@@ -62,5 +65,13 @@ public class FuncionarioServiceImpl implements FuncionarioService {
                 .orElseThrow(()-> new ResourceNotFoundException("Funcionário", id));
 
         funcionarioRepository.delete(funcionario);
+    }
+
+    @Override
+    public List<ProjetoResponseDTO> buscarProjetos(Long idFuncionario) {
+        var projetos = funcionarioRepository.findProjetosByFuncionarioId(idFuncionario);
+        return projetos.stream()
+                .map(ProjetoResponseDTO::new)
+                .toList();
     }
 }

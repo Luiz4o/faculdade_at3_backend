@@ -11,11 +11,8 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(name = "/api/setor")
+@RequestMapping("/api/setor")
 public class SetorController {
-
-    // FALTA COLOCAR UPDATE NO SETOR LUIZ PO
-
     private final SetorServiceImpl setorService;
 
     public SetorController(SetorServiceImpl setorService) {
@@ -62,5 +59,14 @@ public class SetorController {
     public ResponseEntity<Void> deleteFuncionario(@PathVariable(name = "id") Long id, @RequestBody Long idFuncionario){
         setorService.deleteFuncionario(id,idFuncionario);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<SetorResponseDTO> update(
+            @PathVariable Long id,
+            @RequestBody SetorRequestDTO dto
+    ) {
+        var atualizado = setorService.update(id, dto);
+        return ResponseEntity.ok(atualizado);
     }
 }

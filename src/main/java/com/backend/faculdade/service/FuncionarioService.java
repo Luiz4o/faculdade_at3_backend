@@ -2,6 +2,7 @@ package com.backend.faculdade.service;
 
 import com.backend.faculdade.dto.funcionario.FuncionarioRequestDTO;
 import com.backend.faculdade.dto.funcionario.FuncionarioResponseDTO;
+import com.backend.faculdade.dto.projeto.ProjetoResponseDTO;
 import com.backend.faculdade.dto.setor.SetorRequestDTO;
 import com.backend.faculdade.dto.setor.SetorResponseDTO;
 
@@ -18,4 +19,7 @@ public interface FuncionarioService {
     FuncionarioResponseDTO update(Long id,FuncionarioRequestDTO funcionarioRequestDTO);
 
     void delete(Long id);
+
+    List<ProjetoResponseDTO> buscarProjetos(Long idFuncionario);
+
 }

@@ -1,5 +1,6 @@
 package com.backend.faculdade.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -23,9 +24,9 @@ public class Funcionario {
     private String nome;
     @ManyToOne
     @JoinColumn(name = "setor_id")
-    @JsonIgnore
     private Setor setor;
     @OneToMany(mappedBy = "funcionario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<ProjetoFuncionario> projetos;
 
 }

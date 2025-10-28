@@ -2,10 +2,7 @@ package com.backend.faculdade.controler;
 
 import com.backend.faculdade.dto.projeto.ProjetoResponseDTO;
 import com.backend.faculdade.dto.projeto.ProjetoResquestDTO;
-import com.backend.faculdade.dto.setor.SetorRequestDTO;
-import com.backend.faculdade.dto.setor.SetorResponseDTO;
 import com.backend.faculdade.service.impl.ProjetoServiceImpl;
-import com.backend.faculdade.service.impl.SetorServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -14,11 +11,8 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(name = "/api/projeto")
+@RequestMapping("/api/projeto")
 public class ProjetoController {
-
-    // FALTA COLOCAR UPDATE NO PROJETO LUIZ PO
-
     private final ProjetoServiceImpl projetoService;
 
     public ProjetoController(ProjetoServiceImpl projetoService) {
@@ -51,9 +45,16 @@ public class ProjetoController {
 
     @PostMapping("/{id}/funcionario")
     public ResponseEntity<ProjetoResponseDTO> addFuncionario(@PathVariable(name = "id") Long id, @RequestBody Long idFuncionario){
-        var setor = projetoService.addFuncionario(id,idFuncionario);
-        return ResponseEntity.ok().body(setor);
+        var projeto = projetoService.addFuncionario(id,idFuncionario);
+        return ResponseEntity.ok().body(projeto);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProjetoResponseDTO> update(@PathVariable Long id, @RequestBody ProjetoResquestDTO dto) {
+        var projetoAtualizado = projetoService.update(id, dto);
+        return ResponseEntity.ok(projetoAtualizado);
+    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable(name = "id") Long id){

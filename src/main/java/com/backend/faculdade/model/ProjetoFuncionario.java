@@ -1,5 +1,6 @@
 package com.backend.faculdade.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,6 +19,7 @@ public class ProjetoFuncionario {
 
     @ManyToOne
     @JoinColumn(name = "id_projeto")
+    @JsonIgnore
     private Projeto projeto;
 
     @ManyToOne

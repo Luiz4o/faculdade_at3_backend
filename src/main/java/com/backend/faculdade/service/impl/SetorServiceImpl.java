@@ -34,7 +34,7 @@ public class SetorServiceImpl implements SetorService {
 
     @Override
     public List<SetorResponseDTO> findAll() {
-        var listSetor = setorRepository.findAll();
+        var listSetor = setorRepository.findAllWithFuncionarios();
 
         return listSetor.stream()
                 .map(SetorResponseDTO::new)
@@ -86,8 +86,17 @@ public class SetorServiceImpl implements SetorService {
     }
 
     @Override
-    public SetorResponseDTO update(SetorRequestDTO setorRequestDTO) {
-        return null;
+    @Transactional
+    public SetorResponseDTO update(Long id, SetorRequestDTO dto) {
+        var setor = setorRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Setor", id));
+
+        if (dto.nome() != null && !dto.nome().isBlank()) {
+            setor.setNome(dto.nome());
+        }
+
+        setor = setorRepository.save(setor);
+        return new SetorResponseDTO(setor);
     }
 
     @Override

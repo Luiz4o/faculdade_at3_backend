@@ -2,6 +2,7 @@ package com.backend.faculdade.controler;
 
 import com.backend.faculdade.dto.funcionario.FuncionarioRequestDTO;
 import com.backend.faculdade.dto.funcionario.FuncionarioResponseDTO;
+import com.backend.faculdade.dto.projeto.ProjetoResponseDTO;
 import com.backend.faculdade.service.impl.FuncionarioServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,17 +48,23 @@ public class FuncionarioController {
         return ResponseEntity.created(uri).body(funcionario);
     }
 
-    @PutMapping(name = "/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<FuncionarioResponseDTO> update(@PathVariable(name = "id") Long id,@RequestBody FuncionarioRequestDTO dto){
         var funcionario = funcionarioService.update(id, dto);
 
         return ResponseEntity.ok().body(funcionario);
     }
 
-    @DeleteMapping(name = "/{ìd}")
+    @DeleteMapping("/{ìd}")
     public ResponseEntity<Void> delete(@PathVariable(name = "id") Long id){
         funcionarioService.delete(id);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}/projetos")
+    public ResponseEntity<List<ProjetoResponseDTO>> buscarProjetos(@PathVariable Long id) {
+        var projetos = funcionarioService.buscarProjetos(id);
+        return ResponseEntity.ok(projetos);
     }
 }

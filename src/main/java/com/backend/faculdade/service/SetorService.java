@@ -22,7 +22,7 @@ public interface SetorService {
 
     void deleteListFuncionario(Long idSetor, List<Long> idFuncionarios);
 
-    SetorResponseDTO update(SetorRequestDTO setorRequestDTO);
+    SetorResponseDTO update(Long id,SetorRequestDTO setorRequestDTO);
 
     void delete(Long id);
 }

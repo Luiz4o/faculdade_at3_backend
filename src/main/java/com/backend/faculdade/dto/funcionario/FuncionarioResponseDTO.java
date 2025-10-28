@@ -1,6 +1,7 @@
 package com.backend.faculdade.dto.funcionario;
 
 import com.backend.faculdade.model.Funcionario;
+import com.backend.faculdade.model.Projeto;
 import com.backend.faculdade.model.ProjetoFuncionario;
 import com.backend.faculdade.model.Setor;
 import com.backend.faculdade.service.FuncionarioService;
@@ -15,9 +16,15 @@ public record FuncionarioResponseDTO (
         Long id,
         String nome,
         Setor setor,
-        List<ProjetoFuncionario> projetos
+        List<Projeto> projetos
 ){
     public FuncionarioResponseDTO (Funcionario f){
-        this(f.getId(),f.getNome(),f.getSetor(),f.getProjetos());
+        this(f.getId(),f.getNome(),f.getSetor(),f.getProjetos() != null
+                ? f.getProjetos().stream()
+                .map(ProjetoFuncionario::getProjeto)
+                .toList()
+                : List.of()
+        );
     }
+
 }

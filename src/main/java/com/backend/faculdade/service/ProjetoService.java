@@ -22,7 +22,7 @@ public interface ProjetoService {
 
     void deleteListFuncionario(Long idProjeto, List<Long> idFuncionarios);
 
-    ProjetoResponseDTO update(ProjetoResquestDTO projetoRequestDTO);
+    ProjetoResponseDTO update(Long id,ProjetoResquestDTO projetoRequestDTO);
 
     void delete(Long id);
 }
