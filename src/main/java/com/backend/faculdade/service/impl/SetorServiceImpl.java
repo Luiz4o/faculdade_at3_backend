@@ -52,15 +52,20 @@ public class SetorServiceImpl implements SetorService {
     @Transactional
     public SetorResponseDTO addFuncionario(Long idSetor, Long idFuncionario) {
         var setor = setorRepository.findById(idSetor)
-                .orElseThrow(()-> new ResourceNotFoundException("Setor", idSetor));
+                .orElseThrow(() -> new ResourceNotFoundException("Setor", idSetor));
 
-        var funcionaro = funcionarioRepository.findById(idFuncionario)
-                .orElseThrow(()-> new ResourceNotFoundException("Funcionário", idFuncionario));
+        var funcionario = funcionarioRepository.findById(idFuncionario)
+                .orElseThrow(() -> new ResourceNotFoundException("Funcionário", idFuncionario));
 
-        setor.addFuncionario(funcionaro);
-        setor = setorRepository.save(setor);
+        funcionario.setSetor(setor);
+        setor.getFuncionarios().add(funcionario);
+
+        setorRepository.save(setor);
+        funcionarioRepository.save(funcionario);
+
         return new SetorResponseDTO(setor);
     }
+
 
     @Override
     public SetorResponseDTO addListFuncionarios(Long idSetor, List<Long> idFuncionarios) {

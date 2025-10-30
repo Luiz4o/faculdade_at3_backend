@@ -3,6 +3,7 @@ package com.backend.faculdade.controler;
 import com.backend.faculdade.dto.funcionario.FuncionarioRequestDTO;
 import com.backend.faculdade.dto.funcionario.FuncionarioResponseDTO;
 import com.backend.faculdade.dto.projeto.ProjetoResponseDTO;
+import com.backend.faculdade.dto.projeto.ProjetoResponseSemFuncionarioDTO;
 import com.backend.faculdade.service.impl.FuncionarioServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -63,7 +64,7 @@ public class FuncionarioController {
     }
 
     @GetMapping("/{id}/projetos")
-    public ResponseEntity<List<ProjetoResponseDTO>> buscarProjetos(@PathVariable Long id) {
+    public ResponseEntity<List<ProjetoResponseSemFuncionarioDTO>> buscarProjetos(@PathVariable Long id) {
         var projetos = funcionarioService.buscarProjetos(id);
         return ResponseEntity.ok(projetos);
     }

@@ -3,9 +3,11 @@ package com.backend.faculdade.service.impl;
 import com.backend.faculdade.dto.funcionario.FuncionarioRequestDTO;
 import com.backend.faculdade.dto.funcionario.FuncionarioResponseDTO;
 import com.backend.faculdade.dto.projeto.ProjetoResponseDTO;
+import com.backend.faculdade.dto.projeto.ProjetoResponseSemFuncionarioDTO;
 import com.backend.faculdade.exception.ResourceNotFoundException;
 import com.backend.faculdade.model.Funcionario;
 import com.backend.faculdade.repository.FuncionarioRepository;
+import com.backend.faculdade.repository.ProjetoFuncionarioRepository;
 import com.backend.faculdade.service.FuncionarioService;
 import org.springframework.stereotype.Service;
 
@@ -68,10 +70,10 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     }
 
     @Override
-    public List<ProjetoResponseDTO> buscarProjetos(Long idFuncionario) {
+    public List<ProjetoResponseSemFuncionarioDTO> buscarProjetos(Long idFuncionario) {
         var projetos = funcionarioRepository.findProjetosByFuncionarioId(idFuncionario);
         return projetos.stream()
-                .map(ProjetoResponseDTO::new)
+                .map(ProjetoResponseSemFuncionarioDTO::new)
                 .toList();
     }
 }

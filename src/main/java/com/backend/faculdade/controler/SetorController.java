@@ -1,5 +1,6 @@
 package com.backend.faculdade.controler;
 
+import com.backend.faculdade.dto.funcionario.FuncionarioIdDTO;
 import com.backend.faculdade.dto.setor.SetorRequestDTO;
 import com.backend.faculdade.dto.setor.SetorResponseDTO;
 import com.backend.faculdade.service.impl.SetorServiceImpl;
@@ -44,8 +45,8 @@ public class SetorController {
     }
 
     @PostMapping("/{id}/funcionario")
-    public ResponseEntity<SetorResponseDTO> addFuncionario(@PathVariable(name = "id") Long id, @RequestBody Long idFuncionario){
-        var setor = setorService.addFuncionario(id,idFuncionario);
+    public ResponseEntity<SetorResponseDTO> addFuncionario(@PathVariable(name = "id") Long id, @RequestBody FuncionarioIdDTO dto){
+        var setor = setorService.addFuncionario(id,dto.idFuncionario());
         return ResponseEntity.ok().body(setor);
     }
 
@@ -56,8 +57,8 @@ public class SetorController {
     }
 
     @DeleteMapping("/{id}/funcionario")
-    public ResponseEntity<Void> deleteFuncionario(@PathVariable(name = "id") Long id, @RequestBody Long idFuncionario){
-        setorService.deleteFuncionario(id,idFuncionario);
+    public ResponseEntity<Void> deleteFuncionario(@PathVariable(name = "id") Long id, @RequestBody FuncionarioIdDTO dto){
+        setorService.deleteFuncionario(id,dto.idFuncionario());
         return ResponseEntity.noContent().build();
     }
 
